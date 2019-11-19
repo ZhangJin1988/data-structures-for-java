@@ -17,7 +17,7 @@ public class Student {
 
     public static void main(String[] args) {
 
-        Arrays<Student> arr = new Arrays<>();
+        Array<Student> arr = new Array<>();
         arr.addLast(new Student("Alice", 100));
         arr.addLast(new Student("Bob", 66));
         arr.addLast(new Student("Charlie", 88));
