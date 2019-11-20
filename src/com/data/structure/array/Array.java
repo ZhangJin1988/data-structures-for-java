@@ -63,7 +63,11 @@ public class Array<E> {
         if (size == data.length) {
             resize(2 * data.length);
         }
-        System.arraycopy(data, index, data, index + 1, size - index);
+//        System.arraycopy(data, index, data, index + 1, size - index);
+
+        for (int i = size - 1; i >= index; i--) {
+            data[i + 1] = data[i];
+        }
         data[index] = e;
         size++;
     }
@@ -175,7 +179,9 @@ public class Array<E> {
             throw new IllegalArgumentException("Remove failed. Index is illegal.");
         }
         E ret = data[index];
-        System.arraycopy(data, index + 1, data, index, size - index + 1);
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
+        }
         size--;
         // loitering objects != memory leak
         data[size] = null;
@@ -246,22 +252,48 @@ public class Array<E> {
     }
 
     public static void main(String[] args) {
-        Array<Integer> array = new Array();
+//        Array<Integer> array = new Array();
 
-        array.addFirst(1);
-        array.addFirst(2);
-        array.removeFirst();
-        array.set(1, 2);
-        array.set(1, 3);
-        array.set(2, 3);
-        array.contains(1);
-        array.removeFirst();
-        array.removeFirst();
-        array.getFirst();
-        array.getLast();
-        boolean contains = array.contains(2);
-        System.out.println(contains);
-        array.removeElement(1);
+
+        Array arr = new Array(20);
+        for (int i = 0; i < 10; i++) {
+            arr.addLast(i);
+        }
+        System.out.println(arr);
+
+        arr.add(1, 100);
+        System.out.println(arr);
+
+        arr.addFirst(-1);
+        System.out.println(arr);
+        // [-1, 0, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        arr.remove(2);
+        System.out.println(arr);
+
+        arr.removeElement(4);
+        System.out.println(arr);
+
+        arr.removeFirst();
+        System.out.println(arr);
+
+        arr.removeLast();
+        System.out.println(arr);
+
+//        array.addFirst(1);
+//        array.addFirst(2);
+//        array.removeFirst();
+//        array.set(1, 2);
+//        array.set(1, 3);
+//        array.set(2, 3);
+//        array.contains(1);
+//        array.removeFirst();
+//        array.removeFirst();
+//        array.getFirst();
+//        array.getLast();
+//        boolean contains = array.contains(2);
+//        System.out.println(contains);
+//        array.removeElement(1);
 
     }
 }
